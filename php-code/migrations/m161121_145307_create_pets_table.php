@@ -16,7 +16,7 @@ class m161121_145307_create_pets_table extends Migration
             'id' => $this->primaryKey(),
             'genusId' => $this->integer(),
             'name' => $this->integer(),
-            'age' => $this->integer(),
+            'age' => $this->double(),
         ], $this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null);
         $this->addForeignKey('fk_pets_2_genus', 'pets', 'genusId', 'genus', 'id');
     }
