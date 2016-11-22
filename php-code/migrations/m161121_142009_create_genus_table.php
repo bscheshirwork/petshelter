@@ -16,6 +16,9 @@ class m161121_142009_create_genus_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(255),
         ], $this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null);
+        $this->insert('genus', ['name' => 'кошки']);
+        $this->insert('genus', ['name' => 'собаки']);
+        $this->insert('genus', ['name' => 'черепахи']);
     }
 
     /**

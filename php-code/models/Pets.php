@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $genusId
- * @property integer $name
+ * @property string $name
  * @property double $age
  *
  * @property PetFamilies[] $petFamilies
@@ -31,8 +31,9 @@ class Pets extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['genusId', 'name'], 'integer'],
+            [['genusId'], 'integer'],
             [['age'], 'number'],
+            [['name'], 'string', 'max' => 255],
             [['genusId'], 'exist', 'skipOnError' => true, 'targetClass' => Genus::className(), 'targetAttribute' => ['genusId' => 'id']],
         ];
     }
@@ -74,4 +75,22 @@ class Pets extends \yii\db\ActiveRecord
     {
         return new PetsQuery(get_called_class());
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function insert($runValidation = true, $attributes = null)
+    {
+        if (parent::insert($runValidation, $attributes))
+        {
+            $shelterFamily = new PetFamilies();
+            $shelterFamily->setAttributes([
+                'petId' => $this->getAttribute('id'),
+            ]);
+            return $shelterFamily->insert();
+        }
+        return false;
+    }
+
+
 }

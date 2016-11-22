@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "genus".
@@ -39,7 +40,7 @@ class Genus extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Genus',
         ];
     }
 
@@ -58,5 +59,13 @@ class Genus extends \yii\db\ActiveRecord
     public static function find()
     {
         return new GenusQuery(get_called_class());
+    }
+
+    /**
+     * Return list of genus
+     * @return array
+     */
+    public static function getList(){
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 }

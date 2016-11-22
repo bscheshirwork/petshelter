@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'genusId') ?>
+    <?= $form->field($model, 'genusId')->dropDownList(\app\models\Genus::getList()) ?>
 
     <?= $form->field($model, 'name') ?>
 

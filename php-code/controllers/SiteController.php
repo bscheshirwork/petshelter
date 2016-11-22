@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\AdoptForm;
+use app\models\PetSearch;
+use app\models\UserSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -58,18 +61,41 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
+     * Lists all Pets models.
+     * @return mixed
      */
     public function actionIndex()
     {
-        try {
+        $searchModel = new PetSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->addDefaultSort($dataProvider);
 
-        } catch (\Exception $e) {
-            throw new HttpException(500, $response ?? null, $e->statusCode ?? null);
+        return $this->render('/pet/list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Users models.
+     * @return mixed
+     */
+    public function actionAdopt()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $model = new AdoptForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            //todo: adopt && save / get Error
+            $model->adopt();
         }
 
+        return $this->render('/user/list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'adoptModel' => $model,
+        ]);
     }
 
     /**

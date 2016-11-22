@@ -9,10 +9,10 @@ namespace app\models;
  */
 class PetsQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function onlyGenus($genusId)
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere(['genusId'=>$genusId]);
+    }
 
     /**
      * @inheritdoc

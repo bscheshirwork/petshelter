@@ -9,11 +9,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        Парсер Яндекс-погоды по Санкт-Петербургу
-
-
+        Пример классов приюта животных
     </p>
 
 </div>

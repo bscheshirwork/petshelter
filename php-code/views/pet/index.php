@@ -25,7 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'genusId',
+            'genusId' => [
+                'attribute' => 'genus.id',
+                'label' => (new \app\models\Genus)->getAttributeLabel('name'),
+                'value' => 'genus.name',
+                'filter'=> \app\models\Genus::getList(),
+            ],
             'name',
             'age',
 
