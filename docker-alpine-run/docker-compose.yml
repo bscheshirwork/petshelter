@@ -4,11 +4,11 @@ services:
     image: bscheshir/php:7.0.11-fpm-4yii2-xdebug
     restart: always
     volumes:
-      - ./php-code:/var/www/html #php-code
+      - ../php-code:/var/www/html #php-code
     depends_on:
       - db
     environment:
-      XDEBUG_CONFIG: "remote_host=192.168.88.241 remote_port=9007"
+      XDEBUG_CONFIG: "remote_host=192.168.88.241 remote_port=9007 remote_enable=On"
       PHP_IDE_CONFIG: "serverName=petshelter"
   nginx:
     image: nginx:1.11.5-alpine
@@ -20,13 +20,13 @@ services:
     volumes_from:
       - php
     volumes:
-      - ./nginx-conf:/etc/nginx/conf.d #nginx-conf
-      - ./nginx-logs:/var/log/nginx #nginx-logs
+      - ../nginx-conf:/etc/nginx/conf.d #nginx-conf
+      - ../nginx-logs:/var/log/nginx #nginx-logs
   db:
     image: mysql:5.7.15
     restart: always
     volumes:
-      - ./mysql-data/db:/var/lib/mysql #mysql-data
+      - ../mysql-data/db:/var/lib/mysql #mysql-data
     environment:
       MYSQL_ROOT_PASSWORD: petshelter
       MYSQL_DATABASE: petshelter
