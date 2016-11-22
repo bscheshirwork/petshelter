@@ -1,4 +1,4 @@
-FROM php:7.0.11-fpm
+FROM php:7.0.13-fpm
 
 MAINTAINER BSCheshir <bscheshir.work@gmail.com>
 

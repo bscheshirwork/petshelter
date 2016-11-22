@@ -42,30 +42,15 @@ class AdoptForm extends Model
     public function validateGenusCount($attribute, $params)
     {
         if (!$this->hasErrors()) {
-//            if ($this->genusId){
-//                $this->_pet = Pets::find()->onlyGenus($this->genusId)->joinWith('petFamilies as pf')->orderBy(['pf.dateAdoption' => SORT_DESC])->one();
-//            }else{
-//                $this->_pet = Pets::find()->joinWith('petFamilies as pf')->orderBy(['pf.dateAdoption' => SORT_DESC])->one();
-//            }
-
-
-
-
+            //pdo is faster
             $qb = Pets::find()->with([
-                    'petFamilies' => function (\yii\db\ActiveQuery $query) {
-                        $query->orderBy(['dateAdoption' => SORT_DESC]);
+                    'petFamilies' => function (PetFamiliesQuery $query) {
+                        $query->orderBy(['dateAdoption' => SORT_ASC])->readyToAdept();
                     },
-//                    'petFamilies',
                 ]);
-
             if ($this->genusId)
                 $qb = $qb->onlyGenus($this->genusId);
-            $qb->one();
-
-
-
-            //todo: проверка на то, что ПОСЛЕДНИЙ имеет пустой userId
-            if (!$this->_pet)
+            if (!$this->_pet = $qb->one())
                 $this->addError($attribute, 'Incorrect request.');
         }
     }
@@ -76,7 +61,7 @@ class AdoptForm extends Model
      */
     public function adopt(){
         if ($this->validate()){
-            $this->_pet->adopt();
+            return $this->_pet->adopt($this->userId);
         }
         return false;
     }

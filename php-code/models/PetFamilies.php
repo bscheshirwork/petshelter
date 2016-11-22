@@ -24,7 +24,21 @@ class PetFamilies extends \yii\db\ActiveRecord
     {
         return 'pet_families';
     }
-
+    /**
+     * Autoupdate created_at and updated_at fields.
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\ActiveRecord::EVENT_BEFORE_INSERT => ['dateAdoption'],
+                ],
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
     /**
      * @inheritdoc
      */

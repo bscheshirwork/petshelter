@@ -86,7 +86,7 @@ class SiteController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $model = new AdoptForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
             //todo: adopt && save / get Error
             $model->adopt();
         }

@@ -81,8 +81,7 @@ class Pets extends \yii\db\ActiveRecord
      */
     public function insert($runValidation = true, $attributes = null)
     {
-        if (parent::insert($runValidation, $attributes))
-        {
+        if (parent::insert($runValidation, $attributes)) {
             $shelterFamily = new PetFamilies();
             $shelterFamily->setAttributes([
                 'petId' => $this->getAttribute('id'),
@@ -92,5 +91,19 @@ class Pets extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * adopt pet / place in new family
+     * @param int $userId
+     * @return bool
+     */
+    public function adopt(int $userId) : bool
+    {
+        $shelterFamily = new PetFamilies();
+        $shelterFamily->setAttributes([
+            'petId' => $this->getAttribute('id'),
+            'userId' => $userId,
+        ]);
+        return $shelterFamily->insert();
+    }
 
 }
