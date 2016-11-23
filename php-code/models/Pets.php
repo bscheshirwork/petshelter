@@ -62,6 +62,14 @@ class Pets extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getLastPetFamily()
+    {
+        return $this->hasOne(PetFamilies::className(), ['petId' => 'id'])->lastFamily();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getGenus()
     {
         return $this->hasOne(Genus::className(), ['id' => 'genusId']);

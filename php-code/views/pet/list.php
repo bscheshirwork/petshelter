@@ -29,6 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'name',
             'age',
+            [
+                'attribute' => 'lastPetFamily.user.name',
+                'label' => 'Adopt',
+                'value' => 'lastPetFamily.user.name',
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

@@ -28,8 +28,8 @@ class AdoptForm extends Model
     {
         return [
             ['userId', 'required'],
-            [['genusId'], 'exist', 'skipOnError' => true, 'targetClass' => Genus::className(), 'targetAttribute' => ['genusId' => 'id']],
-            ['genusId', 'validateGenusCount'],
+            [['genusId'], 'exist', 'skipOnError' => true, 'skipOnEmpty' => true, 'targetClass' => Genus::className(), 'targetAttribute' => ['genusId' => 'id']],
+            ['genusId', 'validateGenusCount', 'skipOnError' => false, 'skipOnEmpty' => false],
         ];
     }
 
@@ -42,14 +42,14 @@ class AdoptForm extends Model
     public function validateGenusCount($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            //pdo is faster
-            $qb = Pets::find()->with([
+            $qb = Pets::find()->joinWith([
                     'petFamilies' => function (PetFamiliesQuery $query) {
                         $query->orderBy(['dateAdoption' => SORT_ASC])->readyToAdept();
                     },
                 ]);
             if ($this->genusId)
                 $qb = $qb->onlyGenus($this->genusId);
+            // $debugSQL = $qb->createCommand()->getRawSql();
             if (!$this->_pet = $qb->one())
                 $this->addError($attribute, 'Incorrect request.');
         }

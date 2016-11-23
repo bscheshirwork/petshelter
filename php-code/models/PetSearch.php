@@ -66,6 +66,11 @@ class PetSearch extends Pets
             'asc' => ['genus.name' => SORT_ASC],
             'desc' => ['genus.name' => SORT_DESC],
         ];
+        $query->joinWith('lastPetFamily.user as user');
+        $dataProvider->sort->attributes['lastPetFamily.user.name'] = [
+            'asc' => ['user.name' => SORT_ASC],
+            'desc' => ['user.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -79,6 +84,7 @@ class PetSearch extends Pets
         $query->andFilterWhere([
             'id' => $this->id,
             'genus.id' => $this->getAttribute('genus.id'),
+            'user.name' => $this->getAttribute('lastPetFamily.user.name'),
             'age' => $this->age,
         ]);
 

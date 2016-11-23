@@ -87,8 +87,8 @@ class SiteController extends Controller
 
         $model = new AdoptForm();
         if ($model->load(Yii::$app->request->post())) {
-            //todo: adopt && save / get Error
-            $model->adopt();
+            if ($model->adopt())
+                $this->redirect('home');
         }
 
         return $this->render('/user/list', [

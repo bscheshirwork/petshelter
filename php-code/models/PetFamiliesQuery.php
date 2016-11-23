@@ -13,15 +13,19 @@ class PetFamiliesQuery extends \yii\db\ActiveQuery
     public function readyToAdept()
     {
         return $this->andWhere(
-            ['and', ['is', 'userId', null], ['in', 'id',
+            ['is', 'userId', null]
+        )->lastFamily();
+    }
+
+    public function lastFamily(){
+        return $this->andWhere(
+            ['in', 'dateAdoption',
                 new Query([
-                    'select' => ['id'],
+                    'select' => ['maxDateId'=>'MAX(dateAdoption)'],
                     'from' => [PetFamilies::tableName()],
                     'groupBy' => ['petId'],
-                    'orderBy' => ['dateAdoption' => SORT_DESC, 'id' => SORT_DESC]
                 ])
-            ]]
-//                '(SELECT id FROM ' . PetFamilies::tableName() . ' GROUP BY petId, ORDER BY dateAdoption DESC, id DESC)']]
+            ]
         );
     }
 

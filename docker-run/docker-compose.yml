@@ -8,7 +8,7 @@ services:
     depends_on:
       - db
     environment:
-      XDEBUG_CONFIG: "remote_host=192.168.88.241 remote_port=9007"
+      XDEBUG_CONFIG: "remote_host=192.168.88.241 remote_port=9007 var_display_max_data=1024 var_display_max_depth=5"
       PHP_IDE_CONFIG: "serverName=petshelter"
   nginx:
     image: nginx:1.11.5-alpine
@@ -25,6 +25,8 @@ services:
   db:
     image: mysql:5.7.15
     restart: always
+    ports:
+      - "3306:3306"
     volumes:
       - ../mysql-data/db:/var/lib/mysql #mysql-data
     environment:

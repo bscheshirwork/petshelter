@@ -33,6 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'name',
             'age',
+            [
+                'attribute' => 'lastPetFamily.user.name',
+                'label' => 'Adopt',
+                'value' => 'lastPetFamily.user.name',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
