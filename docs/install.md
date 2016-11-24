@@ -17,7 +17,7 @@ $ git clone https://github.com/bscheshirwork/petshelter
 3.Загрузить и запустить сервис `php`
 
 ```
-$ cd petshelter
+$ cd petshelter/docker-run
 $ docker-compose run php /bin/bash
 Creating network "petshelter_default" with the default driver
 Creating petshelter_db_1
