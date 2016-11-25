@@ -5,13 +5,18 @@
 Взяв за основу `codeception/codeception`, создадим образ для запуска тестов с установленными дополнительными модулями.
 (доступен из докерхаба, описание создания)
 ```
+cd docker-codeception-run
 git submodule add https://github.com/Codeception/Codeception.git docker-codeception-run/build
 cd docker-codeception-run/build
 git checkout 2.2 
-sed -i -e "s/^FROM.*/FROM bscheshir\/php:7.0.13-fpm-4yii2/" Dockerfile
+cp ../Dockerfile ../composer.json ./ 
 docker build -t bscheshir/codeception:7.0.13-fpm-4yii2 .
 ```
 
+Замена базы
+```
+sed -i -e "s/^FROM.*/FROM bscheshir\/php:7.0.13-fpm-4yii2/" Dockerfile
+```
 Также данная сборка будет разрешать зависимости
 `composer.json`
 ```

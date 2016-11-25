@@ -20,3 +20,5 @@ Thumbs.db
 
 # mysql data dir
 /mysql-data
+# mysql test data dir
+/mysql-data-test

@@ -55,8 +55,9 @@ RUN apt-get update && \
     echo "expose_php = off\n\
 cgi.fix_pathinfo = 0" >> /usr/local/etc/php/php.ini 
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer global require "fxp/composer-asset-plugin:^1.2.0"
+    composer global require --optimize-autoloader "fxp/composer-asset-plugin:^1.2.0"
 
 ENV XDEBUG_VERSION 2.4.1
 

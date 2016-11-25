@@ -13,8 +13,6 @@ services:
   nginx:
     image: nginx:1.11.5-alpine
     restart: always
-#    ports:
-#      - "8080:80"
     depends_on:
       - php
     volumes_from:
@@ -25,10 +23,8 @@ services:
   db:
     image: mysql:5.7.15
     restart: always
-#    ports:
-#      - "3306:3306"
     volumes:
-      - ../mysql-data/db:/var/lib/mysql #mysql-data
+      - ../mysql-data-test/db:/var/lib/mysql #mysql-data
     environment:
       MYSQL_ROOT_PASSWORD: petshelter
       MYSQL_DATABASE: petshelter

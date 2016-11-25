@@ -33,7 +33,7 @@ settings:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=db;port=3306;dbname=petshelter'
+            dsn: 'mysql:host=db;dbname=petshelter'
             user: 'petshelter'
             password: 'petshelter'
             dump: codeception/_data/dump.sql
